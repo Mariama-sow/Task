@@ -1,0 +1,66 @@
+{% extends "taches/Layout.html" %}
+{% block content %} 
+        <!-- Formulaire de filtrage -->
+         
+            <div class="container-xxl py-5 hero-header mb-5" style="background-color: #000080;">
+                <div class="container my-5 py-5 px-lg-5">
+                    <form class="d-flex mb-4" role="search" method="GET" action="">
+                        <input class="form-control me-2" type="date" name="date" placeholder="Filtrer par date" value="{{ request.GET.date }}">
+                        
+                        <select class="form-control me-2" name="priorite">
+                            <option value="">Toutes les priorités</option>
+                            {% for value, label in taches.model.PRIORITE_CHOICES %}
+                                <option value="{{ value }}" {% if request.GET.priorite == value|stringformat:"s" %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        
+                        <input class="form-control me-2" type="search" name="q" placeholder="Rechercher par catégorie" value="{{ request.GET.q }}">
+                        
+                        <button class="btn btn-outline-success" type="submit">Filtrer</button>
+                    </form>
+                    <!-- Affichage des tâches sous forme de liste -->
+                    <table class="table" style="background-color: white;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Titre</th>
+                                <th>Date d'échéance</th>
+                                <th>Priorité</th>
+                                <th>Catégorie</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         {% if user.is_authenticated == tache.user %}
+                            {% for tache in taches %}
+                            <tr>
+                                <td>{{ tache.id }}</td>
+                                <td>{{ tache.titre }}</td>
+                                <td>{{ tache.date_echeance|date:"d/m/Y H:i" }}</td>
+                                <td>{{ tache.get_priorite_display }}</td>
+                                <td>{{ tache.categorie.type }}</td>
+                                <td>{% if tache.status %}Complétée{% else %}Non complétée{% endif %}</td>
+                                <td>
+                                    <a href="{% url 'tache_detail' tache.id %}" class="btn btn-success">Details</a>
+                                    <a href="{% url 'tache_edit' tache.id %}" class="btn btn-primary">Modifier</a>
+                                  
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6">Aucune tâche trouvée.</td>
+                            </tr>
+                            {% endfor %}
+                          {% endif %}
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+         
+
+{% endblock %}

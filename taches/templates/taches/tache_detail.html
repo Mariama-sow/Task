@@ -1,0 +1,35 @@
+
+{% extends "taches/Layout.html" %}
+{% load static %}
+{% block content %} 
+<div class="container-xxl py-5 bg-primary hero-header mb-5">
+    <div class="container my-5 py-5 px-lg-5">
+      <div class="row g-5 py-5">
+        <div class="col-lg-6 text-center text-lg-start">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p><strong>TITRE :</strong> {{ tache.titre  }}</p>
+                    <p><strong>DATE_ECHEANCE :</strong> {{ tache.date_echeance }}</p>
+                    <p><strong>PRIORITE :</strong> {{ tache.priorite }}</p>
+                    <p><strong>CATEGORIE :</strong> {{ tache.categorie }}</p>
+                    <p><strong>STATUS :</strong> {% if tache.status %}Complétée{% else %}Non complétée{% endif %}</p>
+                    <p><strong>DESCRIPTION :</strong> {{ tache.description }}</p>
+                </div>
+            </div> 
+            <a href="{% url 'tache_delete' tache.id  %}" class="btn btn-danger">Supprimer</a>
+        </div>
+        <div class="col-lg-6 text-center text-lg-start">
+          <img
+            class="img-fluid"
+            src="{% static 'img/hero.png' %}"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                  
+             
+ {% endblock %}

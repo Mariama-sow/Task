@@ -1,0 +1,29 @@
+{% extends "taches/Layout.html" %}
+{% load static %}
+{% block content %} 
+<div class="container-xxl py-5 bg-primary hero-header mb-5">
+    <div class="container my-5 py-5 px-lg-5">
+      <div class="row g-5 py-5">
+        <div class="col-lg-6 text-center text-lg-start">
+                            <div class="card mb-4">
+                                <h1>Êtes-vous sûr de vouloir supprimer la categorie : "{{ categorie.type}}" ?</h1>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Supprimer" class="btn btn-danger"  class="text-center " style="background-color: red;">
+                                    <a href="{% url 'categorie_list' %}" class="btn btn-secondary">Annuler</a  class="text-center">
+                                </form>
+                            </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-start">
+          <img
+            class="img-fluid"
+            src="{% static 'img/hero.png' %}"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ {% endblock %}
+

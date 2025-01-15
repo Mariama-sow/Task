@@ -1,0 +1,40 @@
+{% extends "taches/Layout.html" %}
+{% block content %} 
+            <div class="container-xxl py-5 hero-header mb-5" style="background-color: #000080;">
+              <div class="container my-5 py-5 px-lg-5">
+                      
+                       
+                    <table class="table" style="background-color: white;">
+                      
+                          <h2 class="mb-4" style="color: white;">categorie de taches, Pour en ajouter une cliquez sur <a href="{% url 'categorie_form' %}"  class=" btn btn-success"> Ajouter </a></h2>
+        
+                        <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Catégorie</th>
+                              <th>Action</th>
+                          </tr>
+
+                        </thead>
+                        <tbody>
+
+                        {% if user.is_authenticated == tache.user %}
+                          {% for categorie in categories %}
+                              <tr>
+                                  <td>{{categorie.id}}</td>
+                                  <td>{{categorie.type}}</td>
+                                  <td>
+                                    <a href="{% url 'categorie_delete' categorie.id  %}" class="btn btn-primary">Supprimer</a>
+                                  </td>
+                              </tr>
+                              {% endfor %}
+                        {% endif %}
+
+                          </tbody>
+                    </table>
+          
+              </div>
+            </div>
+
+
+ {% endblock %}

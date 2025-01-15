@@ -1,0 +1,48 @@
+{% extends "taches/Layout.html" %}
+{% load static %}
+{% block content %} 
+<div class="container-xxl py-5 bg-primary hero-header mb-5">
+    <div class="container my-5 py-5 px-lg-5">
+      <div class="row g-5 py-5">
+        <div class="col-lg-6 text-center text-lg-start">
+            <form action="" method="post" class="text-start">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="input-group input-group-outline my-3 d-flex justify-content-center">
+                        <div style="width: 100%; max-width: 350px;">  <!-- Limite la largeur des champs -->
+                            {{ field.label_tag }}
+                            {% if field.errors %}
+                                <ul class="text-danger">
+                                    {% for error in field.errors %}
+                                        <li>{{ error|escape }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="text-center">
+                    <input type="submit" value="Connexion" class="btn btn-primary">
+                </div>
+            </form> 
+            <p class="mt-4 text-sm text-center text-warning" >
+                Vous n'avez pas de compte ? 
+                <a href="{% url 'account:create' %}" class="text-info">Créer un compte</a>
+            </p>
+        </div>
+        <div class="col-lg-6 text-center text-lg-start">
+        
+          <img
+            class="img-fluid"
+            src="{% static 'img/hero.png' %}"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
