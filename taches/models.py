@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
 class Taches(models.Model):
     PRIORITE_CHOICES = [
         (1, 'Haute'),
